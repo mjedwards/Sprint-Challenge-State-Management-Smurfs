@@ -13,22 +13,25 @@ const Smurfs = props => {
       >
         View Smurfs
       </button>
-      {props.smurf.map(smurf => {
-        return (
-          <div key={smurf.id}>
-            <h4>{smurf.name}</h4>
-            <h4>{smurf.age}</h4>
-            <h4>{smurf.height}</h4>
-          </div>
-        );
-      })}
+      {props.smurf.length ? (
+        props.smurf.map(smurf => {
+          return (
+            <div key={smurf.id}>
+              <h4>{smurf.name}</h4>
+              <h4>{smurf.age}</h4>
+              <h4>{smurf.height}</h4>
+            </div>
+          );
+        })
+      ) : (
+        <div>Click button to view Smurfs</div>
+      )}
     </div>
   );
 };
 
 const mapStateToProps = state => {
-  console.log(state);
-  return { name: state.name, age: state.age, height: state.height };
+  return { smurf: state.smurf };
 };
 
 export default connect(mapStateToProps, { getData })(Smurfs);

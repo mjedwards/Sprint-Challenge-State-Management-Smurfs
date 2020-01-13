@@ -1,32 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { postData } from "../../actions/actions";
+import { initialState } from "../../reducers/reducers";
 
 const SmurfForm = props => {
-  const onChange = e => {
-    // { [e.target.name]: e.target.value };
+  const [postInput, setPostInput] = useState(initialState.smurf);
+  const onchange = e => {
+    setPostInput({ ...postInput, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = e => {
-    // e.preventDefault();
-
-    const post = {};
-
-    postData(post);
+  const onsubmit = e => {
+    e.preventDefault();
+    postData({ ...postInput });
   };
-
+  // console.log(postInput);
   return (
     <div>
       <h1>Add Post</h1>
-      <form onSubmit={onSubmit()}>
+      <form onSubmit={onsubmit}>
         <div>
           <label>Name </label>
           <br />
           <input
             type='text'
             name='name'
-            onChange={onChange()}
-            value={props.name}
+            onChange={onchange}
+            value={postInput.name}
           />
           <br />
           <label>Age </label>
@@ -34,8 +33,8 @@ const SmurfForm = props => {
           <input
             type='text'
             name='age'
-            onChange={onChange()}
-            value={props.age}
+            onChange={onchange}
+            value={postInput.age}
           />
           <br />
           <label>Height </label>
@@ -43,8 +42,8 @@ const SmurfForm = props => {
           <input
             type='text'
             name='height'
-            onChange={onChange()}
-            value={props.height}
+            onChange={onchange}
+            value={postInput.height}
           />
         </div>
         <br />
@@ -53,5 +52,9 @@ const SmurfForm = props => {
     </div>
   );
 };
+
+// const mapStateToProps = state => {
+//   return { smurf: state.smurf };
+// };
 
 export default connect(null, { postData })(SmurfForm);

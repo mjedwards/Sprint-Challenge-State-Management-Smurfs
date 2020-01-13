@@ -1,15 +1,19 @@
 import { GET_DATA, POST_DATA } from "../actions/actions";
 
-const initialState = {
-  smurf: [{ name: "Brainey", age: 200, height: "5cm", id: 0 }]
+export const initialState = {
+  smurf: []
 };
 
 export const smurfReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_DATA:
-      return { ...state };
+      //   console.log({ ...state }, "reducer");
+      //   console.log(action.payload, "reducer");
+      return { ...state, smurf: action.payload };
     case POST_DATA:
-      return { ...state };
+      console.log({ ...state }, "reducer post");
+      console.log(action.payload, "reducer post");
+      return { ...state, smurf: action.payload };
     default:
       return state;
   }

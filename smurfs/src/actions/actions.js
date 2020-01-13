@@ -5,7 +5,6 @@ export const POST_DATA = "POST_DATA";
 
 export const getData = () => {
   return dispatch => {
-    dispatch({ type: "LOADING" });
     axios
       .get("http://localhost:3333/smurfs")
       .then(res => {
@@ -15,14 +14,15 @@ export const getData = () => {
   };
 };
 
-export const postData = () => {
-  return dispatch => {
-    dispatch({ type: "LOADING" });
+export const postData = post => {
+  const dispatch = () => {
     axios
-      .post("http://localhost:3333/smurfs")
+      .post("http://localhost:3333/smurfs", post)
       .then(res => {
-        dispatch({ type: POST_DATA, payload: res });
+        console.log(res.data);
+        dispatch({ type: POST_DATA, payload: res.data });
       })
       .catch(err => console.log("ERROR:", err));
   };
+  return dispatch();
 };
